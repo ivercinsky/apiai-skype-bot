@@ -98,8 +98,7 @@ module.exports = class SkypeBot {
                     if (SkypeBot.isDefined(responseText)) {
                         console.log(sender, 'Response as text message');
                         session.send(responseText);
-
-                        
+                        session.send(response.result.fulfillment.source);
 
                     } else {
                         console.log(sender, 'Received empty speech');
