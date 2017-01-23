@@ -105,6 +105,7 @@ module.exports = class SkypeBot {
                                 console.log("cards" ,skypeHelper.responseCards(data));
                                 session.send(skypeHelper.responseCards(data)); 
                             } catch (e) {
+                                console.log(e);
                                 session.send(e);
                             }
                         }
