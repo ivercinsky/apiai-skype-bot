@@ -7,7 +7,9 @@ var responseCards = function responseCards(jsonData) {
     if (jsonData !== undefined) {
         if (jsonData.items !== undefined) {
             var jsonResponse = {};
-            jsonResponse.type = "message/card";
+            jsonResponse.type = "message";
+            jsonResponse.text = "";
+            jsonResponse.attachmentLayout = "list";
             jsonResponse.attachments = []
             var items = jsonData.items;
             var i = 0;
