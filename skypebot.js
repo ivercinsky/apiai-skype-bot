@@ -101,7 +101,12 @@ module.exports = class SkypeBot {
                         console.log("RESPUESTA DESDE API . AI", responseText);
                         let responseJSON = JSON.parse(responseText);
                         console.log(responseJSON);
-                        let cantidadVuelos = responseJSON.items.length;
+                        let cantidadVuelos = responseJSON["items"];
+                        try {
+                            cantidadVuelos = cantidadVuelos.length;
+                        } catch (e) {
+                            console.log(e);
+                        }
                         responseText = cantidadVuelos + " vuelos."
                         session.send(responseText);
 
