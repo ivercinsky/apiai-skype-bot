@@ -94,7 +94,7 @@ module.exports = class SkypeBot {
                 }
 
                 if (SkypeBot.isDefined(response.result)) {
-                    let responseText = response.result.fulfillment.speech;
+                    var responseText = response.result.fulfillment.speech;
 
                     if (SkypeBot.isDefined(responseText)) {
                         console.log(sender, 'Response as text message');
