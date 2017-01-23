@@ -76,7 +76,7 @@ module.exports = class SkypeBot {
                 this._sessionIds.set(sender, uuid.v1());
             }
 
-            session.send("Buscando Vuelos...")
+            
             let apiaiRequest = this._apiaiService.textRequest(messageText,
                 {
                     sessionId: this._sessionIds.get(sender),
@@ -87,7 +87,7 @@ module.exports = class SkypeBot {
                 });
 
             apiaiRequest.on('response', (response) => {
-                session.send("Encontre: ")
+                
                 if (this._botConfig.devConfig) {
                     console.log(sender, "Received api.ai response");
                 }
@@ -97,15 +97,9 @@ module.exports = class SkypeBot {
 
                     if (SkypeBot.isDefined(responseText)) {
                         console.log(sender, 'Response as text message');
-                        var responseJSON = JSON.parse(JSON.parse(responseText));
-                        var cantidadVuelos = responseJSON['items'];
-                        try {
-                            cantidadVuelos = cantidadVuelos.length;
-                        } catch (e) {
-                            console.log(e);
-                        }
-                        responseText = cantidadVuelos + " vuelos."
                         session.send(responseText);
+
+                        
 
                     } else {
                         console.log(sender, 'Received empty speech');
