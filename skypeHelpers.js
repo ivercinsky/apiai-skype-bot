@@ -42,7 +42,7 @@ var responseCards = function responseCards(jsonData) {
                                 card.content.title += " - " + ic.segments[p].to;
                             } else {
                                 card.content.title += " - " + ic.segments[p].to;
-                                card.content.subtitle += " | " + moment(oc.segments[p].arrival_datetime).format("L");   
+                                card.content.subtitle += " | " + moment(ic.segments[p].arrival_datetime).format("L");   
                             }
                         }
                         card.content.text ="";
