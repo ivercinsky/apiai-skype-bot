@@ -88,7 +88,6 @@ module.exports = class SkypeBot {
 
             apiaiRequest.on('response', (response) => {
                 session.send("Encontre: ")
-                //console.log(response);
                 if (this._botConfig.devConfig) {
                     console.log(sender, "Received api.ai response");
                 }
@@ -98,12 +97,8 @@ module.exports = class SkypeBot {
 
                     if (SkypeBot.isDefined(responseText)) {
                         console.log(sender, 'Response as text message');
-                       // console.log("RESPUESTA DESDE API . AI", responseText);
-                        var responseJSON = JSON.parse(responseText);
-                        //console.log("JSON", responseJSON);
-                        console.log("keys", responseJSON.keys);
+                        var responseJSON = JSON.parse(JSON.parse(responseText));
                         var cantidadVuelos = responseJSON['items'];
-                        console.log("items", cantidadVuelos);
                         try {
                             cantidadVuelos = cantidadVuelos.length;
                         } catch (e) {
