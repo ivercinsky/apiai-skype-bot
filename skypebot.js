@@ -101,6 +101,7 @@ module.exports = class SkypeBot {
                         if (response.result.fulfillment.source == "MetaSearchEngine") {
                             try {
                                 var data = JSON.parse(JSON.parse(response.result.fulfillment.data.search));
+                                console.log(skypeHelper.responseCards(data));
                                 session.send(skypeHelper.responseCards(data)); 
                             } catch (e) {
                                 session.send(e);
