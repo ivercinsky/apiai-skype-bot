@@ -1,9 +1,8 @@
 'use strict';
-
 const apiai = require('apiai');
 const uuid = require('node-uuid');
 const botbuilder = require('botbuilder');
-
+const skypeHelper = require("./skypeHelpers.js");
 module.exports = class SkypeBot {
 
     get apiaiService() {
@@ -98,7 +97,15 @@ module.exports = class SkypeBot {
                     if (SkypeBot.isDefined(responseText)) {
                         console.log(sender, 'Response as text message');
                         session.send(responseText);
-                        session.send(response.result.fulfillment.source);
+                        
+                        if (response.result.fulfillment.source == "MetaSearchEngine") {
+                            try {
+                                var data = JSON.parse(JSON.parse(response.result.fulfillment.data.search));
+                                session.send(skypeHelper.responseCards(data)); 
+                            } catch (e) {
+                                session.send(e);
+                            }
+                        }
 
                     } else {
                         console.log(sender, 'Received empty speech');
@@ -118,15 +125,62 @@ module.exports = class SkypeBot {
         }
     }
 
-    static isDefined(obj) {
-        if (typeof obj == 'undefined') {
-            return false;
-        }
+        static isDefined(obj) {
+            if (typeof obj == 'undefined') {
+                return false;
+            }
 
-        if (!obj) {
-            return false;
-        }
+            if (!obj) {
+                return false;
+            }
 
-        return obj != null;
+            return obj != null;
+        }
+}
+
+
+function responseCards(jsonData) {
+    if (isDefined(jsonData)) {
+        if (isDefined(jsonData.items)) {
+            var jsonResponse = {};
+            jsonResponse.type = "message";
+            jsonResponse.attachments = []
+            var items = jsonData.items;
+            var i = 0;
+            for (i=0;i<items.length;i++) {
+                //para cada outbound choice armar el par con todos los inboud choices de ese item.
+                var j = 0;
+                for(j=0;j<items[i].outbound_choices.length;j++) {
+                    var k = 0;
+                    for(k=0;k<items[i].inbound_choices.length;k++) {
+                        var oc = items[i].outbound_choices[j];
+                        var ic = items[i].inbound_choices[k];
+                        var card = {}
+                        card.contentType = "application/vnd.microsoft.card.hero";
+                        card.content = {}
+                        var p = 0;
+                        card.content.title = "";
+                        for(p=0;p<oc.segments.length;p++) {
+                            if (p == 0) {
+                                card.content.title += oc.segments[p].from + " - " + oc.segments[p].to;
+                            } else {
+                                card.content.title += " - " + oc.segments[p].to;
+                            }
+                        }
+
+                        
+                    }
+                    
+                
+                }
+                
+            }
+
+        } else {
+            return "NO TIENE EL ROOT ITEMS";
+        }
+    } else {
+        return "NO ESTA DEFINIDO EL JSON";
     }
+
 }

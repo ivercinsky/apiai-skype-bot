@@ -19,6 +19,7 @@
     "botbuilder": "^3.1.1",
     "console-stamp": "^0.2.2",
     "express": "^4.13.4",
+    "moment": "^2.17.1",
     "node-uuid": "^1.4.7"
   }
 }
