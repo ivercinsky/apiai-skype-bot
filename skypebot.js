@@ -100,7 +100,9 @@ module.exports = class SkypeBot {
                         console.log(response.result.fulfillment.source);
                         if (response.result.fulfillment.source == "MetaSearchEngine") {
                             try {
+                                
                                 var data = JSON.parse(JSON.parse(response.result.fulfillment.data.search));
+                                console.log(data);
                                 console.log(skypeHelper.responseCards(data));
                                 session.send(skypeHelper.responseCards(data)); 
                             } catch (e) {
