@@ -98,6 +98,9 @@ module.exports = class SkypeBot {
                     if (SkypeBot.isDefined(responseText)) {
                         console.log(sender, 'Response as text message');
                         console.log("RESPUESTA DESDE API . AI", responseText);
+                        let responseJSON = JSON.parse(responseText);
+                        let cantidadVuelos = responseJSON.items.length;
+                        let responseText = cantidadVuelos + " vuelos."
                         session.send(responseText);
 
                     } else {
