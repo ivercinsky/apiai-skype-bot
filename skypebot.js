@@ -76,6 +76,7 @@ module.exports = class SkypeBot {
                 this._sessionIds.set(sender, uuid.v1());
             }
 
+            session.send("Buscando Vuelos...")
             let apiaiRequest = this._apiaiService.textRequest(messageText,
                 {
                     sessionId: this._sessionIds.get(sender),
@@ -86,6 +87,7 @@ module.exports = class SkypeBot {
                 });
 
             apiaiRequest.on('response', (response) => {
+                session.send("Encontre: ")
                 if (this._botConfig.devConfig) {
                     console.log(sender, "Received api.ai response");
                 }
