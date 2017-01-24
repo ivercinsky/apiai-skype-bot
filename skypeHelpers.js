@@ -30,7 +30,7 @@ var responseCards = function responseCards(jsonData) {
                         for(p=0;p<oc.segments.length;p++) {
                             if (p == 0) {
                                 card.content.title += oc.segments[p].from + " - " + oc.segments[p].to;
-                                card.content.subtitle += moment(oc.segments[p].departure_datetime).format("L");
+                                card.content.subtitle += moment(oc.segments[p].departure_datetime).format("DD MMMM YYYY, hh:mm a");
                                 //card.content.subtitle += moment().format("LLLL");
                             } else {
                                 card.content.title += " - " + oc.segments[p].to;
@@ -44,11 +44,14 @@ var responseCards = function responseCards(jsonData) {
                                 card.content.title += " - " + ic.segments[p].to;
                             } else {
                                 card.content.title += " - " + ic.segments[p].to;
-                                card.content.subtitle += " | " + moment(ic.segments[p].arrival_datetime).format("L");   
+                                card.content.subtitle += " | " + moment(ic.segments[p].arrival_datetime).format("DD MMMM YYYY, hh:mm a");   
                             }
                         }
-                        card.content.text ="";
-                        card.content.images=[]
+
+                        var pd = items[i].price_detail;
+
+                        card.content.text = pd.currency + "$ " + pd.total
+                        card.content.images=[{url:'http://img1.rnkr-static.com/list_img_v2/15352/115352/C480/boeing-airplanes-and-aircrafts-u1.jpg'}]
                         card.content.buttons=[]
                         card.content.tap=null
                         jsonResponse.attachments.push(card);
