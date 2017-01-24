@@ -86,7 +86,7 @@ module.exports = class SkypeBot {
                 });
 
             apiaiRequest.on('response', (response) => {
-                
+                console.log(response);
                 if (this._botConfig.devConfig) {
                     console.log(sender, "Received api.ai response");
                 }
