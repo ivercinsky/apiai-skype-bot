@@ -3,7 +3,7 @@
 const apiai = require('apiai');
 const express = require('express');
 const bodyParser = require('body-parser');
-const morgan = require('morgan');
+const morgan = require('morgan-body');
 
 const SkypeBot = require('./skypebot');
 const SkypeBotConfig = require('./skypebotconfig');
@@ -24,7 +24,7 @@ require('console-stamp')(console, 'yyyy.mm.dd HH:MM:ss.l');
 
 const app = express();
 app.use(bodyParser.json());
-app.use(morgan('tiny'));
+morgan(app);
 
 app.post('/chat', skypeBot.botService.listen());
 
