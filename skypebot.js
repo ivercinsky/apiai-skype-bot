@@ -67,6 +67,10 @@ module.exports = class SkypeBot {
         let messageText = session.message.text;
         let sender = session.message.address.conversation.id;
 
+
+
+        session.send("Hola");
+        /*
         if (messageText && sender) {
 
             console.log(sender, messageText);
@@ -127,7 +131,8 @@ module.exports = class SkypeBot {
             apiaiRequest.end();
         } else {
             console.log('Empty message');
-        }
+        }*/
+
     }
 
         static isDefined(obj) {
