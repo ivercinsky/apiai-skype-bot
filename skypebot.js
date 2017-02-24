@@ -39,12 +39,12 @@ module.exports = class SkypeBot {
 
     constructor(botConfig) {
         this._botConfig = botConfig;
-        var apiaiOptions = {
+        /*var apiaiOptions = {
             language: botConfig.apiaiLang,
             requestSource: "skype"
-        };
+        };*/
 
-        this._apiaiService = apiai(botConfig.apiaiAccessToken, apiaiOptions);
+        //this._apiaiService = apiai(botConfig.apiaiAccessToken, apiaiOptions);
         this._sessionIds = new Map();
 
         this.botService = new botbuilder.ChatConnector({
@@ -55,6 +55,7 @@ module.exports = class SkypeBot {
         this._bot = new botbuilder.UniversalBot(this.botService);
 
         this._bot.dialog('/', (session) => {
+            console.log(session);
             if (session.message && session.message.text) {
                 this.processMessage(session);
             }
