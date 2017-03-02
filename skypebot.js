@@ -78,12 +78,20 @@ module.exports = class SkypeBot {
                 });
 
             }, (session, args, next) => {
-                if (session.action == "buscar_vuelos") {
-                    asistente.buscar_vuelos(session.params).then(function (data) {
-                        session.send("Estos son los resultados que encontre");//deberia venir desde asistente
-                        session.send(data);
-                        session.endDialog();
-                    });
+                switch(session.action) {
+                    case "buscar_vuelos" :
+                        asistente.buscar_vuelos(session.params).then(function (data) {
+                            session.send("Estos son los resultados que encontre");//deberia venir desde asistente
+                            var jsonData = JSON.parse(data);
+                            var cards = skypeHelper.responseCards(jsonData);
+                            session.send(cards);
+                            session.endDialog();
+                        });
+                        break;
+                    case "intent2" :
+                        break;
+                    case "intent3" :
+                        break;
                 }
             }]);
     }

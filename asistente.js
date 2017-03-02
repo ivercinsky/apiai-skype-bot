@@ -1,12 +1,14 @@
 const request = require('request-promise');
 
+var asistente_url = process.env.ASISTENTE_URL;
+
 const test = function(msg) {
-    return request.get("http://localhost:3000/chat?chat=" + msg+ '"');
+    return request.get(asistente_url + "?chat=" + msg+ '"');
 }
 
 const buscar_vuelos = function(params) {
      var options = {
-        url:"http://localhost:3000/",
+        url: asistente_url+"/buscar_vuelos",
         body: {
             result : {
                 action: "buscar_vuelos",
