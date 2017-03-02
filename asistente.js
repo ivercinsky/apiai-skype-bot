@@ -3,7 +3,9 @@ const request = require('request-promise');
 var asistente_url = process.env.ASISTENTE_URL;
 
 const test = function(msg) {
-    return request.get(asistente_url + "?chat=" + msg+ '"');
+    var url = asistente_url + "/chat?chat=" + msg;
+    console.log(url);
+    return request.get(url);
 }
 
 const buscar_vuelos = function(params) {
